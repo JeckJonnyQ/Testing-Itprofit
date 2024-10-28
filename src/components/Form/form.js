@@ -1,4 +1,4 @@
-export const FeedbackForm = {
+export const Form = {
   render: () => {
     return `
     <form class=form id="form">
@@ -11,7 +11,7 @@ export const FeedbackForm = {
         <p class="form__email-error hidden" id="emailError"></p>
 
         <label for="phone">Телефон</label>
-        <input type="text" class="form__phone" id="phone" name="phone" placeholder="+375">
+        <input type="text" class="form__phone" id="phone" name="phone" placeholder="+375" autocomplete="off">
         <p class="form__phone-error hidden" id="phoneError"></p>
 
         <label for="message">Сообщение</label>

@@ -1,16 +1,17 @@
 import "./index.html";
 import "./index.scss";
-import Inputmask from "inputmask";
 
-import { FeedbackForm } from "./components/feedbackForm";
+import Inputmask from "inputmask";
+import { Form } from "./components/Form/form";
 import { Modal } from "./components/Modal/modal";
 import { openModal, closeModal } from "./components/Modal/modalHandlers";
 import { validateForm } from "./components/validateForm";
+import { sendForm } from "./api/fetchForm";
 
 const app = document.getElementById("app");
 app.className = "app";
 app.innerHTML += Modal.render();
-app.innerHTML += FeedbackForm.render();
+app.innerHTML += Form.render();
 
 const phoneInput = document.getElementById("phone");
 const im = new Inputmask("+375 (99) 999-99-99");
@@ -31,17 +32,27 @@ modalOverlay.addEventListener("click", (e) => {
   }
 });
 
+const form = document.getElementById("form");
 const submitBtn = document.querySelector(".form__sub-btn");
-submitBtn.addEventListener("click", (e) => {
+submitBtn.addEventListener("click", async (e) => {
   e.preventDefault();
   const isValid = validateForm(form);
 
-  console.log("Форма успешно отправлена!");
-
   if (isValid) {
-    const inputs = form.querySelectorAll("input, textarea");
-    inputs.forEach((input) => {
-      input.value = "";
-    });
+    const formData = new FormData(form);
+    const response = await sendForm(formData);
+
+    if (response.status === "success") {
+      console.log(`Статус: ${response.status} - ${response.msg}`);
+      console.log(response);
+      form.reset();
+    } else {
+      console.error(
+        `Статус: ${response.status} - ${response.fields.inputName}`
+      );
+      console.log(response);
+    }
+  } else {
+    console.log("Пожалуйста, исправьте ошибки в форме.");
   }
 });
