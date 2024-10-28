@@ -4,14 +4,18 @@ import "./index.scss";
 import Inputmask from "inputmask";
 import { Form } from "./components/Form/form";
 import { Modal } from "./components/Modal/modal";
+import { Popup } from "./components/Popup/popmessage";
 import { openModal, closeModal } from "./components/Modal/modalHandlers";
+import showPopup from "./components/Popup/popHandler";
 import { validateForm } from "./components/validateForm";
+
 import { sendForm } from "./api/fetchForm";
 
 const app = document.getElementById("app");
 app.className = "app";
 app.innerHTML += Modal.render();
 app.innerHTML += Form.render();
+app.innerHTML += Popup.render();
 
 const phoneInput = document.getElementById("phone");
 const im = new Inputmask("+375 (99) 999-99-99");
@@ -43,13 +47,11 @@ submitBtn.addEventListener("click", async (e) => {
     const response = await sendForm(formData);
 
     if (response.status === "success") {
-      console.log(`Статус: ${response.status} - ${response.msg}`);
+      showPopup(response.status, response.message);
       console.log(response);
-      form.reset();
+      // form.reset();
     } else {
-      console.error(
-        `Статус: ${response.status} - ${response.fields.inputName}`
-      );
+      showPopup(response.status, response.message);
       console.log(response);
     }
   } else {

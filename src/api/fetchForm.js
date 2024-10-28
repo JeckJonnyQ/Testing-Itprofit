@@ -7,18 +7,12 @@ export async function sendForm(formData) {
 
     if (!response.ok) {
       const errorMsg = await response.json();
-      console.log(errorMsg);
-      return {
-        status: "error",
-        fields: {
-          inputName: errorMsg.message || "Неизвестная ошибка",
-        },
-      };
+      return errorMsg;
     }
 
     return {
       status: "success",
-      msg: "Вы успешно зарегистрировались",
+      message: "You are registered",
     };
   } catch {
     return {
