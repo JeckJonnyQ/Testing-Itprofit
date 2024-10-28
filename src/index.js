@@ -49,7 +49,7 @@ submitBtn.addEventListener("click", async (e) => {
     if (response.status === "success") {
       showPopup(response.status, response.message);
       console.log(response);
-      // form.reset();
+      form.reset();
     } else {
       showPopup(response.status, response.message);
       console.log(response);
