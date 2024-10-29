@@ -8,7 +8,6 @@ import { Popup } from "./components/Popup/popmessage";
 import { openModal, closeModal } from "./components/Modal/modalHandlers";
 import showPopup from "./components/Popup/popHandler";
 import { validateForm } from "./components/validateForm";
-
 import { sendForm } from "./api/fetchForm";
 
 const app = document.getElementById("app");

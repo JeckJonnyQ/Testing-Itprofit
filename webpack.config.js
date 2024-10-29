@@ -20,6 +20,7 @@ module.exports = {
     clean: true,
     filename: "index.[contenthash].js",
     assetModuleFilename: "assets/images/[name][ext]",
+    publicPath: "/Testing-Itprofit",
   },
   plugins: [
     new HtmlWebpackPlugin({
